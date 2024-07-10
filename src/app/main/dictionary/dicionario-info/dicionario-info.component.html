@@ -1,0 +1,46 @@
+<po-page-default  p-title="Dicionários"
+>
+
+<po-divider></po-divider>
+
+  <div class="botoes-container">
+    <po-button p-kind="tertiary"   p-icon="po-icon po-icon-refresh" p-label="Atualizar" class="" (p-click)="refresh()"></po-button>
+
+    <po-button p-kind="primary" p-label="Exportar" p-icon="po-icon po-icon-doc-xls" class="botao-adicionar" (p-click)="exportPlanilha()" [p-disabled]="disableProcess()"></po-button>
+
+    <po-button p-kind="primary" [p-danger]="true"  p-icon="po-icon po-icon-delete" p-label="Excluir  " class="botao-adicionar" (p-click)="abrirModal()" [p-disabled]="disableProcess()"></po-button>
+  </div>
+
+  
+  <div class="table-container">
+    <po-table
+      [p-selectable]="true"
+      [p-columns]="columnsDict"
+      p-actions-right="true"
+      [p-items]="itemsSX2"
+      [p-actions]="actions"
+    >
+    </po-table>
+  </div>
+<div class="button-container centered-links">
+    <a (click)="loadPreviousPage()" [class.disabled]="!hasPrevious" class="pagination-link">
+        <span class="icon po-icon po-icon-first-page"></span>
+        <span class="label">Voltar</span>
+    </a>
+    <a (click)="loadNextPage()" [class.disabled]="!hasNext" class="pagination-link">
+        <span class="label">Avançar</span>
+        <span class="icon po-icon po-icon-last-page"></span>
+    </a>
+</div>
+
+
+
+
+  <po-modal [p-hide-close]="true"  [p-primary-action]="confirm"  [p-secondary-action]="close"  p-title="Exluir análises" #modalDictDelete >
+
+      <p class="text-modal"> Desejar excluir as análises selecionadas ?</p>
+
+  </po-modal>
+
+</po-page-default>
+

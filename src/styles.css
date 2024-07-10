@@ -1,0 +1,32 @@
+.po-container {
+  font-size: 0.8rem;
+}/* You can add global styles to this file, and also import other style files */
+
+/* Exemplo de estilização baseada no rótulo do botão */
+button.po-button[ng-reflect-label='Deletar Análise'] {
+  background-color: red;
+  color: white;
+}
+
+
+.mat-dialog-container {
+  /* Centraliza o diálogo vertical e horizontalmente */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.fa-upload {
+  color: green !important; /* Força a cor verde para o ícone */
+}
+
+.fa-upload.disabled {
+  color: gray !important; /* Cor cinza para ícone desabilitado */
+  pointer-events: none; /* Remove a clicabilidade */
+}
+
+/*
+.po-button {
+  --border-radius:  50px !important; ;  
+   color: '#00A8FF'
+} */

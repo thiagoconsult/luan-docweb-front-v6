@@ -1,0 +1,4 @@
+:host {
+    display: block;
+    height:  100vh; /* 100% da altura da viewport */
+  }

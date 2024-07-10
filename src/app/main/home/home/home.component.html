@@ -1,0 +1,155 @@
+<po-page-default p-title="Home">
+  <!-- Formulário Dicionário -->
+  <div style="position: relative">
+    <form [formGroup]="myFormDicionario">
+      <!-- Overlay de carregamento -->
+      <div>
+        <po-loading-overlay
+          p-text="Enviando Arquivos"
+          [hidden]="isHideLoading"
+        ></po-loading-overlay>
+      </div>
+      
+      <!-- Título e divisor -->
+      <h2>DICIONÁRIOS</h2>
+      <po-divider></po-divider>
+      <p class="text-obs">Faça o upload de dicionários para comparação.</p>
+      <!-- Widget de upload de arquivos -->
+      <po-widget [p-height]="150">
+        <div class="container-dict">
+          <div *ngFor="let upload of uploads; let i = index" class="upload-row">
+            <po-button 
+              p-kind="tertiary" 
+              [p-label]="'Instância ' + (i + 1) + ':'" 
+              p-icon="po-icon po-icon-upload-cloud po-clickable" 
+              (click)="selectFiles(i)"
+            ></po-button>
+            <input 
+              type="file" 
+              multiple 
+              (change)="onFileSelected($event, upload)" 
+              style="display:none" 
+              #fileInput
+            >
+            <input 
+              placeholder="Nome Dicionário" 
+              class="input-dict" 
+              type="text" 
+              [(ngModel)]="uploads[i].name" 
+              [ngModelOptions]="{standalone: true}" 
+              required
+            >
+            <input 
+              placeholder="0 arquivos" 
+              class="input-dict" 
+              type="text" 
+              [value]="upload.quantidadeArquivos" 
+              disabled
+            >
+            <input 
+              placeholder="0 MB" 
+              class="input-dict" 
+              type="text" 
+              [value]="upload.tamanhoArquivos" 
+              disabled
+            >
+          </div>
+        </div>
+      </po-widget>
+
+      <!-- Botão de enviar arquivos -->
+      <po-button 
+        [p-disabled]="!areAllNamesFilled || lbuttonAnalise" 
+        class="upload-button" 
+        p-kind="primary" 
+        [p-label]="nameButtonAnalise" 
+        (p-click)="enviarArquivos()"
+      ></po-button>
+    </form>
+  </div>
+
+  <!-- Barra de progresso -->
+  <po-progress *ngIf="!isHideLoading" [p-value]="percentDone"></po-progress>
+
+  <!-- Formulário Repositório -->
+  <div style="position: relative">
+    <form [formGroup]="myFormFonte">
+      <!-- Título e divisor -->
+      <div class="po-mt-5">
+        <h2>REPOSITÓRIO</h2>
+      </div>
+      <po-divider></po-divider>
+      <p class="text-obs">Faça o upload dos códigos fontes.</p>
+
+
+      <!-- Widget de upload de documentação -->
+      <po-widget [p-height]="154">
+        <div class="container-flex">
+          <po-button 
+            p-label="Selecionar:" 
+            p-icon="po-icon po-icon-upload-cloud po-clickable" 
+            p-kind="tertiary" 
+            (click)="upload.selectFiles()"
+          ></po-button>
+          <input 
+            placeholder="0 arquivos" 
+            class="input-flex" 
+            type="text" 
+            [value]="quantidadeArquivos" 
+            disabled
+          >
+          <input 
+            placeholder="0 MB" 
+            class="input-flex" 
+            type="text" 
+            [value]="tamanhoArquivos" 
+            disabled
+          >
+        </div>
+
+        <div class="container-flex">
+          <po-button 
+            class="disabled" 
+            p-label="Mensagem:" 
+            p-icon="po-icon po-icon-edit" 
+            p-kind="tertiary"
+          ></po-button>
+          <input 
+            placeholder="Mensagem para o commit" 
+            class="commit" 
+            type="text" 
+            [(ngModel)]="commitMessage" 
+            [ngModelOptions]="{standalone: true}" 
+            required
+          >
+        </div>
+
+        <!-- Componente de upload invisível -->
+        <div [hidden]="true">
+          <po-upload
+            #upload
+            formControlName="fonte"
+            name="fonte"
+            [p-multiple]="true"
+            [p-literals]="customLiterals"
+            [p-hide-select-button]="true"
+            [p-hide-send-button]="true"
+            [p-auto-upload]="true"
+            (p-upload)="uploadArquivo($event)"
+            p-url="."
+          ></po-upload>
+        </div>
+      </po-widget>
+
+      <!-- Botão de enviar fontes -->
+      <po-button 
+        nome="analisarFonte" 
+        p-label="Enviar fonte(s)" 
+        class="upload-button" 
+        (p-click)="analisarFonte()" 
+        p-kind="primary" 
+        [p-disabled]="lDisabledButtonFonte || !commitMessage"
+      ></po-button>
+    </form>
+  </div>
+</po-page-default>

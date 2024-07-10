@@ -1,0 +1,154 @@
+<po-page-default p-title="Repositório" >
+
+    
+    <po-divider p-label=""></po-divider>
+
+    <form [formGroup]="reactiveForm">
+    
+    <po-input 
+    class="po-md-12"
+    p-placeholder="Busca Avançada"
+    formControlName="search" 
+    p-clean p-icon="po-icon po-icon-search" 
+    (p-change-model)="updateField()"
+    ></po-input>
+
+    </form>
+    <br><br>
+    <div>
+        <po-loading-overlay [p-screen-lock]="true" class="sample-container" [hidden]="isHideLoading"></po-loading-overlay>
+    </div>
+
+    <po-widget [p-height]="485" class="po-row po-mt-4">
+
+        <div>
+
+            <div class="po-row">
+                <h4 class="po-mt-2">{{ labelPainelDoc }}</h4>
+            </div>
+
+            
+            <div class="po-mt-2">
+                <po-accordion >
+                    <ng-container *ngFor="let i of Object.keys(items)">
+                        <po-accordion-item
+                            class="po-row po-mt-2"
+                            [p-label]="i + ' (' + items[i].length + ')'"
+                        >
+                        <table class="tabela-dinamica">
+                            <thead>
+                                <th class="nome">Nome</th>
+                                <th class="funcoes">Funções</th>
+                                <th class="tabelas">Tabelas</th>
+                                <th class="qtd-linhas">Linhas</th>
+                                <th class="executaveis">Linhas exec</th>
+                                <th class="qtd-linhas-doc">Linhas doc</th>
+                                <th class="quebra-linha">Quebras</th>
+                                <th *ngIf="isAdmin; else notAdmin1" class="acoes">Categorizar</th>
+                                <ng-template #notAdmin1>
+                                    <th class="acoes">Reservar</th>
+                                </ng-template>
+                                
+                                <th *ngIf="isAdmin; else notAdmin2" class="acoes2">Excluir</th>
+                                <ng-template #notAdmin2>
+                                    <th class="acoes2">Download</th>
+                                </ng-template>
+                                
+                            </thead>
+                            <tbody class="zebrado">
+                                <tr *ngFor="let item of items[i]" [ngClass]="{ 'red-background': item.reserv }">
+                                  <td [ngClass]="{ 'red-background': item.reserv }" class="celula-espacada" style="width: 25%">
+                                    <a (click)="onViewDetail(item)">{{ item.name }}</a>
+                                  </td>
+                                  <td [ngClass]="{ 'red-background': item.reserv }" class="celula-espacada" style="width: 10%; "   >
+                                    {{ item.functions }}
+                                  </td>
+                                  <td [ngClass]="{ 'red-background': item.reserv }" class="celula-espacada" style="width: 10%">
+                                    {{ item.tables }}
+                                  </td>
+                                  <td [ngClass]="{ 'red-background': item.reserv }" class="celula-espacada" style="width: 10%">
+                                    {{ item.line }}
+                                  </td>
+                                  <td [ngClass]="{ 'red-background': item.reserv }" class="celula-espacada" style="width: 10%">
+                                    {{ item.line - (item.commentedLines + item.blankLines) }}
+                                  </td>
+                                  <td [ngClass]="{ 'red-background': item.reserv }" class="celula-espacada" style="width: 15%">
+                                    {{ item.commentedLines }}
+                                  </td>
+                                  <td [ngClass]="{ 'red-background': item.reserv }" class="celula-espacada" style="width: 10%">
+                                    {{ item.blankLines }}
+                                  </td>
+                                  <td [ngClass]="{ 'red-background': item.reserv }" class="celula-espacada" style="width: 10%; text-align: center;">
+                                    <ng-container *ngIf="isAdmin; else checkReserv">
+                                      <i class="fas fa-pencil-alt" style="color: rgb(42, 148, 35); cursor: pointer;" (click)="openModalCategory(item.name)"></i>
+                                    </ng-container>
+                                    <ng-template #checkReserv>
+                                      <ng-container *ngIf="item.reserv; else greenHandIcon">
+                                        <i class="fas fa-lock" style="color: rgb(148, 35, 35); cursor: pointer;"></i>
+                                      </ng-container>
+                                      <ng-template #greenHandIcon>
+                                        <i class="fas fa-hand-paper" style="color: rgb(42, 148, 35); cursor: pointer;" (click)="reserv(item.name)"></i>
+                                      </ng-template>
+                                    </ng-template>
+                                  </td>
+                                  <td [ngClass]="{ 'red-background': item.reserv }"  class="celula-espacada" style="width: 10%; text-align: center;">
+                                    <ng-container *ngIf="isAdmin; else blueDownloadIcon">
+                                      <i class="fas fa-trash-alt" style="color: rgb(148, 35, 35); cursor: pointer;" (click)="openModalFont(item.name)"></i>
+                                    </ng-container>
+                                    <ng-template #blueDownloadIcon>
+                                      <i class="fas fa-download" style="color: rgb(6, 123, 191); cursor: pointer;" (click)="downloadService.downloadFile(item.name, item.source)"></i>
+                                    </ng-template>
+                                  </td>
+                                  
+                                </tr>
+                              </tbody>
+                              
+                              
+                            </table>
+                        </po-accordion-item>
+                    </ng-container>
+                </po-accordion>
+            </div>
+        </div>
+    </po-widget>
+    <br>
+
+    <div *ngIf="isAdmin" class="fixed-button">
+        <po-button [p-disabled]="lDisabled" p-kind="primary" p-label="Excluir Repositório" p-danger="true" (p-click)="openModal()"></po-button>
+    </div>
+
+    <po-modal [p-hide-close]="true"  [p-primary-action]="confirm"  [p-secondary-action]="close"  p-title="Excluir Repositório" #modalDocDelete >
+
+        <p class="text-modal"> Tem certeza de que deseja excluir o repositório? Esta ação é irreversível.</p>
+  
+    </po-modal>
+
+    <po-modal [p-hide-close]="true"  [p-primary-action]="confirmModalFont"  [p-secondary-action]="close"  p-title="Excluir Fonte" #modalFontDelete >
+
+        <p class="text-modal"> Tem certeza de que deseja excluir esse arquivo fonte? Esta ação é irreversível.</p>
+  
+    </po-modal>
+
+    <po-modal p-size="md" [p-hide-close]="true" [p-primary-action]="confirmModalCategory" [p-secondary-action]="close" p-title="Categorizar" #modalFontCategory>
+        <div class="center-content">
+            <po-combo
+                name="categoryCombo"
+                [p-options]="categories"
+                [ngModel]="selectedCategory"
+                (p-change)="onCategoryChange($event)"
+                p-field-label="category"
+                p-field-value="category"
+                p-placeholder="Selecione a categoria">
+            </po-combo>
+    
+            <po-input
+                *ngIf="showCustomInput"
+                [p-upper-case]="true"
+                [(ngModel)]="customCategory"
+                p-placeholder="Digite a nova categoria"
+                p-required="true">
+            </po-input>        
+        </div>
+    </po-modal>
+    
+</po-page-default>

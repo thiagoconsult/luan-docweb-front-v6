@@ -1,0 +1,12 @@
+
+<div class="po-wrapper">
+    <ng-template [ngIf]="!router.isActive('/main/login', true)">
+        <po-toolbar [p-title]="title"
+       >
+            
+        </po-toolbar>
+        <po-menu [p-collapsed]="false"  [p-menus]="menus" p-logo="assets/totvs.png"></po-menu>
+      </ng-template>
+      
+<router-outlet></router-outlet>
+</div>

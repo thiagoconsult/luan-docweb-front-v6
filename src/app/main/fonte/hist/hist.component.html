@@ -1,0 +1,101 @@
+
+<po-page-default p-title="Histórico de Fontes">
+
+<po-divider></po-divider>
+
+<form [formGroup]="reactiveForm">
+    <po-input 
+    class="po-md-12"
+    p-placeholder="Busca Avançada"
+    formControlName="search" 
+    p-clean p-icon="po-icon po-icon-search" 
+    (p-change-model)="updateField()"
+
+    ></po-input>
+</form>
+
+<br><br>
+<br><br>
+
+<div>
+
+</div>
+<po-widget [p-height]="485">
+    <po-accordion>
+      <po-accordion-item *ngFor="let fonte of fontes" p-label="{{ fonte.fonte }}"
+                         (p-expand)="expandAccordion(fonte)" (p-collapse)="collapseAccordion(fonte)">
+  
+        <!-- Cria a tabela somente se o item estiver expandido -->
+        <ng-container *ngIf="fonte.isExpanded">
+          <po-table
+            [p-columns]="columns"
+            [p-actions-right]="true"
+            [p-actions]="actions"
+            [p-service-api]="getUrl(fonte.fonte)"
+            [p-hide-columns-manager]="true"
+            >
+          </po-table>
+        </ng-container>
+  
+      </po-accordion-item>
+    </po-accordion>
+  </po-widget>
+
+
+</po-page-default>
+
+<po-modal #poModal p-title="Detalhes do Fonte" [p-size]="modalSize">
+  <po-tabs>
+    <po-tab p-label="Versão atual x Anterior" [p-active]="true">
+      <div class="code-container">
+        <div class="line-numbers">
+          <ng-container *ngFor="let part of diffResult">
+            <ng-container *ngFor="let line of part.lines">
+              <div class="line-number" [ngClass]="part.type">
+                <div *ngIf="part.type === 'added'">{{ line.lineNum + '+'}}</div>
+                <div *ngIf="part.type === 'removed'">{{ line.lineNum + '-'}}</div>
+                <div *ngIf="part.type === 'unchanged'">{{ line.lineNum }}</div>
+                
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+        <div class="code-content">
+          <ng-container *ngFor="let part of diffResult">
+            <ng-container *ngFor="let line of part.lines">
+              <div [ngClass]="part.type" class="code-line">
+                {{ line.value }}
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+    </po-tab>
+    <po-tab p-label="Versão atual">
+      <div class="code-container">
+        <div class="line-numbers">
+          <ng-container *ngFor="let part of sourceCod">
+            <ng-container *ngFor="let line of part.lines">
+              <div class="line-number" [ngClass]="part.type">
+                {{ line.lineNum }}
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+        <div class="code-content">
+          <ng-container *ngFor="let part of sourceCod">
+            <ng-container *ngFor="let line of part.lines">
+              <div [ngClass]="part.type" class="code-line">
+                {{ line.value }}
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+    </po-tab>
+  </po-tabs>
+  
+  <po-modal-footer>
+    <po-button p-label="Fechar" (p-click)="poModal.close()"></po-button>
+  </po-modal-footer>
+</po-modal>

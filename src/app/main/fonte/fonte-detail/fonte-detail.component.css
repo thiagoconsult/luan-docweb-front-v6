@@ -1,0 +1,42 @@
+.code-container {
+    display: flex;
+    background-color: #1e1e1e; /* Fundo escuro */
+    color: #d4d4d4; /* Cor do texto */
+    font-family: 'Consolas', 'Courier New', monospace;
+    padding: 10px;
+    border-radius: 5px;
+    overflow: auto;
+}
+
+.line-numbers {
+    text-align: right;
+    padding-right: 10px;
+    border-right: 1px solid #333;
+    user-select: none; /* Evita seleção de texto */
+    color: #858585; /* Cor dos números das linhas */
+}
+
+.code-content {
+    padding-left: 10px;
+    white-space: pre;
+    overflow: auto;
+}
+
+/* Estilizando o scrollbar para ficar parecido com o VS Code */
+.code-container::-webkit-scrollbar {
+    width: 10px;
+}
+
+.code-container::-webkit-scrollbar-track {
+    background: #1e1e1e;
+}
+
+.code-container::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+    border: 2px solid #1e1e1e;
+}
+
+.code-container::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}

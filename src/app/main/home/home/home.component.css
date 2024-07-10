@@ -1,0 +1,104 @@
+.upload-container {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-column-gap: 32px; /* Espaçamento entre os elementos */
+  align-items: center; /* Alinha os itens verticalmente ao centro */
+}
+
+.text-obs{
+  color: #045b8f;
+  font-weight: bold;
+  padding-left: 5px;
+  padding-bottom: 5px;
+}
+.container-dict {
+  display: grid;
+  gap: 16px; /* Espaçamento entre as linhas e colunas */
+  margin-bottom: 16px; /* Espaçamento abaixo do container */
+}
+
+.upload-row {
+  display: grid;
+  grid-template-columns: auto 1fr 1fr 1fr; /* Distribuição das colunas */
+  gap: 12px; /* Espaçamento entre elementos na mesma linha */
+  align-items: center; /* Alinha os itens ao centro verticalmente */
+}
+
+.upload-button {
+  padding-top: 10px;
+  margin-left: auto;
+  display: block;
+  text-align: right;
+}
+
+.input-font {
+  width: 280px; /* largura */
+  height: 40px; /* altura */
+  padding: 8px; /* espaço interno */
+  margin-right: 16px; /* Adiciona margem à direita */
+  border-radius: 5px; /* borda arredondada */
+  border: 1px solid #ccc; /* borda sólida */
+  font-size: 13px; /* tamanho da fonte */
+  color: BLACK; /* Cor do texto */
+  font-weight: bold; /* Texto em negrito */
+}
+
+.input-dict {
+  width: 100%; /* Usa toda a largura disponível na célula da grade */
+  padding: 8px; /* Ajuste do espaço interno para melhor legibilidade */
+  margin: 0; /* Remove margem padrão */
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  color: black;
+  font-weight: bold;
+  text-align: center;
+}
+
+.button-font {
+  position: fixed;
+  padding-top: 165px;
+  bottom: 510; /* ajuste conforme necessário */
+  right: 35px; /* ajuste conforme necessário */
+}
+
+.container-flex {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px; /* Espaçamento entre os elementos */
+  padding: 10px; /* Espaço interno para não tocar nas bordas do widget */
+}
+
+.input-flex {
+  flex: 1; /* Faz com que os inputs ocupem o espaço disponível de forma equilibrada */
+  padding: 8px; /* Espaçamento interno para o texto */
+  margin: 0; /* Garante que não haja margem extra */
+  border-radius: 5px; /* Bordas arredondadas para os inputs */
+  border: 1px solid #ccc; /* Cor da borda */
+  font-size: 13px; /* Tamanho da fonte ajustado */
+  color: #333; /* Cor da fonte */
+  text-align: center; /* Centraliza o texto dentro do input */
+  font-weight: bold;
+}
+
+.commit {
+  flex: 1; /* Faz com que os inputs ocupem o espaço disponível de forma equilibrada */
+  padding: 8px; /* Espaçamento interno para o texto */
+  margin: 0; /* Garante que não haja margem extra */
+  border-radius: 5px; /* Bordas arredondadas para os inputs */
+  border: 1px solid #ccc; /* Cor da borda */
+  font-size: 13px; /* Tamanho da fonte ajustado */
+  color: #333; /* Cor da fonte */
+  text-align: center; /* Centraliza o texto dentro do input */
+  font-weight: bold;
+}
+
+.disabled {
+  pointer-events: none;
+}
+
+/* Ajusta o tamanho do botão para alinhar com os inputs */
+.po-button {
+  height: 40px; /* Altura para igualar aos inputs */
+}

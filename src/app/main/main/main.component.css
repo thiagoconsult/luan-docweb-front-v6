@@ -1,0 +1,14 @@
+
+.toolbar-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .po-toolbar .po-toolbar-title {
+    white-space: pre-wrap; /* Permite respeitar múltiplos espaços */
+  }
+  
+  .po-toolbar .po-toolbar-title::before {
+    content: "TOTVS     "; /* Espaçamento fixo após "TOTVS" */
+  }
+  

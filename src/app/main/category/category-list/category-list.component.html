@@ -1,0 +1,14 @@
+
+<po-page-default p-title="Categorias" [p-actions]="pageActions">
+    <po-divider></po-divider>
+    <po-table [p-actions-right]="true" [p-columns]="columns" [p-items]="categoryList" [p-actions]="actions">
+
+   </po-table>
+
+   <po-modal [p-hide-close]="true"  [p-primary-action]="confirmModalDelete"  [p-secondary-action]="close"  p-title="Excluir Categoria" #modalDelete >
+
+    <p class="text-modal"> Tem certeza de que deseja excluir essa categoria ? Esta ação é irreversível.</p>
+
+</po-modal>
+</po-page-default>
+

@@ -1,0 +1,24 @@
+<po-page-default [p-breadcrumb]="breadcrumb" p-title="Resultado" [p-actions]="pageAction" >
+
+
+  <div>
+  </div>
+  
+    <po-accordion>
+      <ng-container *ngFor="let tabela of objectKeys(tabelasItems)">
+        <po-accordion-item  [p-label]="tabela">
+          <po-table [p-columns]="columnsDict" [p-items]="tabelasItems[tabela]"  >
+            <ng-template p-table-cell-template let-column="column" let-row="row">
+              <div *ngIf="column.property === 'dif'">
+                <span [style.color]="row.isOk ? 'green' : 'red'">
+                  {{ row.dif }}
+                </span>
+              </div>
+             
+            </ng-template>
+          </po-table>
+        </po-accordion-item>
+      </ng-container>
+      </po-accordion>
+
+</po-page-default>

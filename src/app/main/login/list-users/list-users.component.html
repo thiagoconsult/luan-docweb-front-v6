@@ -1,0 +1,13 @@
+<po-page-default p-title="Usuários" [p-actions]="pageActions" >
+
+    <po-divider></po-divider>
+        <po-table [p-infinite-scroll]="true" [p-height]="350" [p-actions-right]="true" [p-items]="itemsUsers" [p-columns]="columns"  [p-actions]="actions">
+    
+        </po-table>
+    
+        <po-modal [p-hide-close]="true"  [p-primary-action]="confirmModalDelete"  [p-secondary-action]="close"  p-title="Excluir Usuário" #modalDelete >
+
+            <p class="text-modal"> Tem certeza de que deseja excluir esse usuário ? Esta ação é irreversível.</p>
+      
+        </po-modal>
+</po-page-default>

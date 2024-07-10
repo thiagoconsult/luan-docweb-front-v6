@@ -1,0 +1,73 @@
+.zebrado tr:nth-child(odd) {
+    background-color: #f9f9f9; 
+}
+
+.red-background {
+    background-color:  #ffe6e6;; 
+}
+
+.zebrado tr:nth-child(even) {
+    background-color: #ffffff; 
+}
+
+.text-modal {
+    font-size: 18px;
+}
+
+.acoes, .acoes2 {
+    text-align: center; /* Centraliza horizontalmente */
+    vertical-align: middle; /* Centraliza verticalmente */
+    display: table-cell;
+}
+
+
+.button-delete {
+    background-color: #c90407c3; /* Cor de fundo vermelha */
+    color: #e6e1e1; /* Cor do texto branca */
+    border: none; /* Remove a borda */
+    padding: 8px 16px; /* Adiciona um pouco de espaço interno */
+    border-radius: 4px; /* Borda arredondada */
+    cursor: pointer; /* Mostra o cursor como ponteiro ao passar por cima */
+    transition: background-color 0.3s ease; /* Transição suave da cor de fundo */
+}
+
+.button-delete:hover {
+    background-color: #ff7875; /* Cor de fundo vermelha mais clara ao passar o mouse */
+}
+
+.celula-espacada {
+    padding-top: 10px;    
+    padding-bottom: 10px;
+}
+
+a {
+    cursor: pointer;
+}
+
+.tabela-dinamica {
+    width: 100%; /* Faz a tabela ocupar toda a largura disponível */
+    table-layout: fixed; /* Assegura que a tabela respeite a largura definida */
+}
+
+/* Estilos para as colunas */
+.tabela-dinamica th.nome, .tabela-dinamica td.nome { width: 15%; }
+.tabela-dinamica th.funcoes, .tabela-dinamica td.funcoes { width: 9%; }
+.tabela-dinamica th.tabelas, .tabela-dinamica td.tabelas { width: 7%; }
+.tabela-dinamica th.qtd-linhas, .tabela-dinamica td.qtd-linhas { width: 8%; }
+.tabela-dinamica th.executaveis, .tabela-dinamica td.executaveis { width: 10%; }
+.tabela-dinamica th.qtd-linhas-doc, .tabela-dinamica td.qtd-linhas-doc { width: 12%; }
+.tabela-dinamica th.quebra-linha, .tabela-dinamica td.quebra-linha { width: 8%; }
+.tabela-dinamica th.acoes, .tabela-dinamica td.acoes { width: 10%; }
+.tabela-dinamica th.acoes2, .tabela-dinamica td.acoes2 { width: 10%; }
+
+
+.fixed-button {
+    position: fixed;
+    bottom: 17px; /* Distância da parte inferior da tela */
+    right: 20px; /* Distância da parte direita da tela */
+    z-index: 999; /* Garante que o botão fique sempre sobre o conteúdo */
+}
+
+.center-content {
+ padding-LEFT: 20px
+}

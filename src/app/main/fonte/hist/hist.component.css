@@ -1,0 +1,56 @@
+/* diff-modal.component.css */
+.code-container {
+    display: flex;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    border: 1px solid #333;
+  }
+  
+  .line-numbers {
+    background-color: #2d2d2d;
+    color: #858585;
+    padding: 10px;
+    text-align: right;
+    user-select: none;
+  }
+  .line-symbol {
+    position: absolute;
+    left: -20px; /* Ajuste conforme necessário para o layout desejado */
+    width: 15px; /* Ajuste conforme necessário para o layout desejado */
+    text-align: center;
+  }
+  
+  .line-number {
+    padding-right: 10px;
+  }
+  
+  .code-content {
+    padding: 10px;
+    overflow-x: auto;
+  }
+  
+  .code-line {
+    white-space: pre;
+  }
+  
+  .added {
+    background-color: #144212;
+    color: #b4fbc4;
+  }
+  
+  .removed {
+    background-color: #621214;
+    color: #fbc4c4;
+  }
+  
+  .modified {
+    background-color: #564e1e;
+    color: #ffe2a1;
+  }
+  
+  .unchanged {
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+  }
+  

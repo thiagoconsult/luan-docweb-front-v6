@@ -1,0 +1,321 @@
+/* Certifique-se de que o corpo e o contêiner da tabela ocupem todo o espaço disponível */
+body, html {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.table-container {
+  flex: 1; /* Permitir que o contêiner cresça para ocupar o espaço disponível */
+  display: flex;
+  flex-direction: column;
+  padding: 10px; /* Adicionar algum espaçamento ao redor da tabela */
+  height: 52vh; /* Ajustar a altura da tabela baseada na viewport */
+  min-height: 53vh; /* Altura mínima para a tabela */
+  max-height: 100vh; /* Permitir que a tabela cresça até a altura máxima da viewport */
+  overflow: auto; /* Permitir rolagem se necessário */
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+  color: #212529;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.table tbody + tbody {
+  border-top: 2px solid #dee2e6;
+}
+
+.table .table {
+  background-color: #ffffff;
+}
+
+/* Estilo para linhas zebrado */
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Estilo para linhas com fundo vermelho claro */
+.red-background {
+  background-color: rgba(120, 34, 34, 0.3);
+}
+
+.green-background {
+  background-color: rgba(2, 2, 2, 0.3);
+}
+
+/* Estilo para o ícone de upload */
+.upload-icon {
+  color: green;
+  cursor: pointer;
+}
+
+/* Estilo para o botão de expansão */
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+button .fas {
+  font-size: 1.25rem;
+}
+
+/* Estilo para garantir que as tabelas aninhadas se ajustem corretamente */
+.table .table {
+  margin: 0;
+}
+
+/* Estilo para alinhamento do texto na tabela */
+.text-center {
+  text-align: center;
+}
+
+/* Adicionando rolagem suave com mouse */
+.table-container:hover {
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+}
+
+.table-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* Estilo para linha oculta */
+.hidden-column {
+  display: none;
+}
+
+/* Estilo personalizado para tabelas aninhadas */
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.custom-table thead {
+  background-color: #f4f4f4;
+}
+
+.custom-table th, .custom-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.custom-table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #e2e2e2;
+}
+
+.custom-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.custom-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  right: 0; /* Alinha o menu à direita */
+}
+
+.dropdown-menu a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown.show .dropdown-menu {
+  display: block;
+}
+
+/*CSS para os botoes*/
+.button-container {
+  margin-top: 20px; /* Espaçamento entre a tabela e os botões */
+}
+
+.centered-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Espaçamento entre os links */
+}
+
+.pagination-link {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: #045b8f;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.pagination-link .icon {
+  font-size: 24px;
+}
+
+.pagination-link .label {
+  font-size: 16px;
+  margin-left: 8px; /* Espaço entre o ícone e o texto no link "Voltar" */
+}
+
+.pagination-link .icon.po-icon-last-page {
+  margin-left: 8px; /* Espaço entre o texto e o ícone no link "Avançar" */
+}
+
+.pagination-link:hover:not(.disabled) {
+  color: #045b8f;
+}
+
+.pagination-link.disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Outros estilos */
+.po-row {
+  display: flex;
+  align-items: center;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.input-search {
+  width: 22%;
+  margin-right: 11px; /* Espaço à direita */
+  margin-bottom: 11px; /* Espaço abaixo */
+}
+
+.input-search-select {
+  width: 21%;
+  margin-right: 11px; /* Espaço à direita */
+  margin-bottom: 11px; /* Espaço abaixo */
+}
+
+.clear-fix {
+  clear: both;
+  height: 1px;
+  visibility: hidden;
+}
+
+.container-flex {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px; /* Espaçamento entre os elementos */
+  padding: 10px; /* Espaço interno para não tocar nas bordas do widget */
+}
+
+.input-flex {
+  flex: 1; /* Faz com que os inputs ocupem o espaço disponível de forma equilibrada */
+  padding: 8px; /* Espaçamento interno para o texto */
+  margin: 0; /* Garante que não haja margem extra */
+  border-radius: 5px; /* Bordas arredondadas para os inputs */
+  border: 1px solid #ccc; /* Cor da borda */
+  font-size: 13px; /* Tamanho da fonte ajustado */
+  color: #333; /* Cor da fonte */
+  text-align: center; /* Centraliza o texto dentro do input */
+  font-weight: bold;
+}
+
+.commit {
+  flex: 1; /* Faz com que os inputs ocupem o espaço disponível de forma equilibrada */
+  padding: 8px; /* Espaçamento interno para o texto */
+  margin: 0; /* Garante que não haja margem extra */
+  border-radius: 5px; /* Bordas arredondadas para os inputs */
+  border: 1px solid #ccc; /* Cor da borda */
+  font-size: 13px; /* Tamanho da fonte ajustado */
+  color: #333; /* Cor da fonte */
+  text-align: center; /* Centraliza o texto dentro do input */
+  font-weight: bold;
+}
+
+.disabled {
+  pointer-events: none;
+}
+
+/* diff-modal.component.css */
+.code-container {
+  display: flex;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+  border: 1px solid #333;
+}
+
+.line-numbers {
+  background-color: #2d2d2d;
+  color: #858585;
+  padding: 10px;
+  text-align: right;
+  user-select: none;
+}
+
+.line-symbol {
+  position: absolute;
+  left: -20px; /* Ajuste conforme necessário para o layout desejado */
+  width: 15px; /* Ajuste conforme necessário para o layout desejado */
+  text-align: center;
+}
+
+.line-number {
+  padding-right: 10px;
+}
+
+.code-content {
+  padding: 10px;
+  overflow-x: auto;
+}
+
+.code-line {
+  white-space: pre;
+}
+
+.added {
+  background-color: #144212;
+  color: #b4fbc4;
+}
+
+.removed {
+  background-color: #621214;
+  color: #fbc4c4;
+}
+
+.modified {
+  background-color: #564e1e;
+  color: #ffe2a1;
+}
+
+.unchanged {
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+}

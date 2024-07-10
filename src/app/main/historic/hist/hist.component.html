@@ -1,0 +1,54 @@
+
+<po-page-default p-title="Histórico de Fontes">
+
+    <po-divider></po-divider>
+    
+    <form [formGroup]="reactiveForm">
+        <po-input 
+        class="po-md-12"
+        p-placeholder="Busca Avançada"
+        formControlName="search" 
+        p-clean p-icon="po-icon po-icon-search" 
+        (p-change-model)="updateField()"
+    
+        ></po-input>
+    </form>
+    
+    <br><br>
+    <br><br>
+    
+    <div>
+    
+    </div>
+    <po-widget [p-height]="485">
+        <po-accordion>
+          <po-accordion-item *ngFor="let fonte of fontes" p-label="{{ fonte.fonte }}"
+                             (p-expand)="expandAccordion(fonte)" (p-collapse)="collapseAccordion(fonte)">
+      
+            <!-- Cria a tabela somente se o item estiver expandido -->
+            <ng-container *ngIf="fonte.isExpanded">
+              <po-table
+                [p-columns]="columns"
+                [p-actions-right]="true"
+                [p-actions]="actions"
+                [p-service-api]="getUrl(fonte.fonte)">
+              </po-table>
+            </ng-container>
+      
+          </po-accordion-item>
+        </po-accordion>
+      </po-widget>
+    
+    
+    </po-page-default>
+    
+    <po-modal #poModal p-title="Detalhes do Fonte" [p-size]="modalSize">
+    
+    
+        <pre>{{ currentSource }}</pre>
+    
+    
+        <po-modal-footer>
+          <po-button p-label="Fechar" (p-click)="poModal.close()"></po-button>
+        </po-modal-footer>
+    </po-modal>

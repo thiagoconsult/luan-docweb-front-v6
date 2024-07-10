@@ -1,0 +1,253 @@
+<po-page-default p-title="Histórico de Reservas"  p-subtitle="etetetettdtete">
+  <po-divider></po-divider>
+  <!-- Filtros -->
+  <form [formGroup]="filterForm">
+    <div class="po-row">
+      <div class="input-search">
+        <po-input
+          p-label="Data de:"
+          formControlName="startDate"
+          p-placeholder="dd/mm/aaaa"
+          p-mask="99/99/9999"
+          p-icon="po-icon po-icon-calendar"
+        ></po-input>
+      </div>
+      <div class="input-search">
+        <po-input
+          p-label="Data até:"
+          p-mask="99/99/9999"
+          formControlName="endDate"
+          p-placeholder="dd/mm/aaaa"
+          p-icon="po-icon po-icon-calendar"
+        ></po-input>
+      </div>
+      <div class="input-search-select">
+        <po-select
+          p-label="Situação:"
+          [p-options]="statusOptions"
+          formControlName="status">
+        </po-select>
+      </div>
+      <div class="input-search-select">
+        <po-select
+          p-label="Desenvolvedor:"
+          [p-options]="developerOptions"
+          formControlName="developer">
+        </po-select>
+      </div>
+      <div  style="margin-top: 13px;"> <!-- Ajuste a margem conforme necessário -->
+        <po-button
+          p-kind="primary"
+          p-label="Filtrar"
+          p-icon="po-icon po-icon-filter"
+          (p-click)="onFilter()"
+          type="submit">
+        </po-button>
+      </div>
+    </div>
+  </form>
+  
+  <form [formGroup]="reactiveForm">
+    <po-input 
+    style="width:80%;"
+    p-placeholder="Pesquisar"
+    formControlName="search" 
+    p-clean p-icon="po-icon po-icon-search" 
+    (p-change-model)="onSearch()"
+
+    ></po-input>
+  </form>
+
+
+<div class="clear-fix"></div>
+  <div class="table-container">
+    <table class="table table-striped">
+
+      <tbody>
+        <ng-container *ngFor="let rowItem of filteredData; let i = index">
+          <tr [style.backgroundColor]="getRowClass(rowItem)['green-background'] ? 'rgba(92, 184, 92, 0.1)' : (getRowClass(rowItem)['red-background'] ? 'rgba(217, 83, 79, 0.1)' : 'inherit')">           
+            <td>
+              <button (click)="toggleExpand(rowItem)">
+                <i class="fas" [ngClass]="expandedRows[rowItem.id] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+              </button>
+            </td> 
+            <td class="text-bold" text-bold>{{ rowItem.fonte }}</td>
+            <td *ngIf="!rowItem.data_fim" class="text-bold">FONTE RESERVADO</td>
+            <td *ngIf="rowItem.data_fim" class="text-bold">FONTE DISPONÍVEL</td>
+            <!-- <td class="text-center">
+              <i *ngIf="!rowItem.data_fim && rowItem.dev === loginUser" class="fas fa-upload upload-icon"
+                 (click)="openModalUpload(rowItem.fonte, rowItem.dev)">
+              </i>
+              <i *ngIf="rowItem.data_fim || rowItem.dev !== loginUser" class="fas fa-upload upload-icon disabled">
+              </i>
+            </td> -->
+          </tr>
+                 
+
+          <tr *ngIf="expandedRows[rowItem.id]">
+            <td colspan="8">
+              <table class="custom-table">
+                <thead>
+                  <tr>    
+                    
+                    
+                    <th>Reserva</th>
+                    <th>Dev</th>
+                    <th>Tempo Reservado</th>
+                    <th>Devolução</th>
+                    <th>Upload</th>
+                    <th>Ações</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of nestedData[rowItem.id]"
+                  [style.backgroundColor]="getRowClass(item)['green-background'] ? 'rgba(92, 184, 92, 0.1)' : (getRowClass(item)['red-background'] ? 'rgba(217, 83, 79, 0.1)' : 'inherit')"
+              >
+                <td class="hidden-column">{{ item.fonte }}</td>
+                <td>{{ item.data_ini + ' - ' + item.hora }}</td>
+                <td>{{ item.dev }}</td>
+                <td>{{ item.dias }}</td>
+                <td>{{ item.data_fim ? (item.data_fim + ' - ' + item.hora_fim) : '' }}</td>
+                <td class="text-center">
+                  <i *ngIf="!item.data_fim && item.dev === loginUser" class="fas fa-upload upload-icon"
+                     (click)="openModalUpload(item.fonte, item.dev)">
+                  </i>
+                  <i *ngIf="item.data_fim || item.dev !== loginUser" class="fas fa-upload upload-icon disabled">
+                  </i>
+                </td>
+                <td (mouseleave)="closeDropdown(item)">
+                  <div class="dropdown" [class.show]="isDropdownOpen(item)" (click)="toggleDropdown(item)">
+                    <i class="fas fa-ellipsis-v"></i>
+                    <div style="color: #045b8f ;" class="dropdown-menu" *ngIf="isDropdownOpen(item)">
+                      <a style="color: #045b8f ;" class="dropdown-item"  (click)="viewFonte(item.source_dev, item.source_ori, item.data_fim)">Visualizar</a>
+                      <a style="color: #045b8f ;" class="dropdown-item"  (click)="downloadService.downloadFile(item.fonte, item.source_dev)">Download</a>
+                      <a style="color: #8f0404 ;" *ngIf="isAdmin()" class="dropdown-item"  (click)="openModalDelete([item.id])">Excluir</a>
+                    </div>
+                  </div>
+                </td>
+                
+              
+              </tr>
+              
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+    <div class="button-container centered-links">
+      <a (click)="loadPreviousPage()" [class.disabled]="!hasPrevious" class="pagination-link">
+          <span class="icon po-icon po-icon-first-page"></span>
+          <span class="label">Voltar</span>
+      </a>
+      <a (click)="loadNextPage()" [class.disabled]="!hasNext" class="pagination-link">
+          <span class="label">Avançar</span>
+          <span class="icon po-icon po-icon-last-page"></span>
+      </a>
+  </div>
+
+  <po-modal p-size="lg" [p-hide-close]="true"  p-title="Upload de Fonte" #modalUpload [p-primary-action]="confirmUpload" [p-secondary-action]="close">
+    <form [formGroup]="myFormFonte">
+    <div class="container-flex">
+      <po-button p-label="Selecionar:"
+                 p-icon="po-icon po-icon-upload-cloud po-clickable"
+                 p-kind="tertiary"
+                 (click)="upload.selectFiles()">
+      </po-button>
+      <input placeholder="0 arquivos" class="input-flex" type="text" [value]="quantidadeArquivos" disabled>
+      <input placeholder="0 MB" class="input-flex" type="text" [value]="tamanhoArquivos" disabled>
+    </div>
+    <div class="container-flex">
+                         
+      <po-button class="disabled" p-label="Mensagem:"
+                 p-icon="po-icon po-icon-edit"
+                 p-kind="tertiary"
+       >
+      </po-button>
+      <input placeholder="Mensagem para o commit" class="commit" type="text" [(ngModel)]="commitMessage" [ngModelOptions]="{standalone: true}" required>
+      
+    </div>
+    <div [hidden]="true">
+      <!-- Componente de upload invisível -->
+
+      <po-upload
+          #upload
+          formControlName="fonte"
+          name="fonte"
+          [p-multiple]="false"
+          [p-literals]="customLiterals"
+          [p-hide-select-button]="true"
+          [p-hide-send-button]="true"
+          [p-auto-upload]="true"
+          (p-upload)="uploadArquivo($event)"
+          p-url="."
+      ></po-upload>
+  </div>
+</form>
+ 
+  </po-modal>
+</po-page-default>
+
+<po-modal #poModal p-title="Detalhes do Fonte" [p-size]="modalSize">
+  <po-tabs>
+    <po-tab p-label="Versão atual x Anterior" [p-active]="true">
+      <div class="code-container">
+        <div class="line-numbers">
+          <ng-container *ngFor="let part of diffResult">
+            <ng-container *ngFor="let line of part.lines">
+              <div class="line-number" [ngClass]="part.type">
+                <div *ngIf="part.type === 'added'">{{ line.lineNum + '+'}}</div>
+                <div *ngIf="part.type === 'removed'">{{ line.lineNum + '-'}}</div>
+                <div *ngIf="part.type === 'unchanged'">{{ line.lineNum }}</div>
+                
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+        <div class="code-content">
+          <ng-container *ngFor="let part of diffResult">
+            <ng-container *ngFor="let line of part.lines">
+              <div [ngClass]="part.type" class="code-line">
+                {{ line.value }}
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+    </po-tab>
+    <po-tab p-label="Versão atual">
+      <div class="code-container">
+        <div class="line-numbers">
+          <ng-container *ngFor="let part of sourceCod">
+            <ng-container *ngFor="let line of part.lines">
+              <div class="line-number" [ngClass]="part.type">
+                {{ line.lineNum }}
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+        <div class="code-content">
+          <ng-container *ngFor="let part of sourceCod">
+            <ng-container *ngFor="let line of part.lines">
+              <div [ngClass]="part.type" class="code-line">
+                {{ line.value }}
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+    </po-tab>
+  </po-tabs>
+  
+  <po-modal-footer>
+    <po-button p-label="Fechar" (p-click)="poModal.close()"></po-button>
+  </po-modal-footer>
+</po-modal>
+
+<po-modal [p-hide-close]="true"  [p-primary-action]="confirmDelete"  [p-secondary-action]="close"  p-title="Excluir Reserva" #modalDelete >
+  <p class="text-modal"> Tem certeza de que deseja excluir essa reserva? Esta ação é irreversível.</p>
+</po-modal>

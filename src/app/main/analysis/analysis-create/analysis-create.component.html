@@ -1,0 +1,76 @@
+<po-page-default
+  p-title="Análise Cruzada"
+  [p-actions]="pageActions"
+  [p-breadcrumb]="breadcrumb"
+>
+  teste
+  <div>
+    <po-divider></po-divider>
+    <p class="text-obs">
+      Selecione apenas uma análise de dicionário, já concluída.
+    </p>
+
+    <br />
+    <po-table
+      [p-height]="180"
+      [p-selectable]="true"
+      [p-columns]="columnsDict"
+      [p-items]="itemsSX2"
+      [p-single-select]="true"
+      [p-hide-columns-manager]="true"
+    ></po-table>
+  </div>
+  <br />
+  <p class="text-obs">Faça seleção de Categorias ou de Fontes.</p>
+  <br />
+
+  <div class="po-md-6" [ngClass]="{ disabled: isTable1Disabled }">
+    <form [formGroup]="reactiveForm">
+      <po-input
+        style="width: 80%"
+        p-placeholder="Pesquisar"
+        formControlName="search"
+        p-clean
+        p-icon="po-icon po-icon-search"
+        (p-change-model)="onSearchCategory()"
+      ></po-input>
+    </form>
+
+    <po-table
+      [p-height]="243"
+      [p-columns]="columns"
+      [p-items]="categoryList"
+      [p-hide-columns-manager]="true"
+      [p-selectable]="true"
+      (p-selected)="onTableBlock()"
+      (p-unselected)="onTableBlock()"
+      (p-all-selected)="onTableBlock()"
+      (p-all-unselected)="onTableBlock()"
+    >
+    </po-table>
+  </div>
+  <div class="po-md-6" [ngClass]="{ disabled: isTable2Disabled }">
+    <form [formGroup]="reactiveForm">
+      <po-input
+        style="width: 80%"
+        p-placeholder="Pesquisar"
+        formControlName="searchSource"
+        p-clean
+        p-icon="po-icon po-icon-search"
+        (p-change-model)="onSearchSource()"
+      ></po-input>
+    </form>
+
+    <po-table
+      [p-height]="243"
+      [p-hide-columns-manager]="true"
+      [p-selectable]="true"
+      [p-items]="fontes"
+      (p-selected)="onTableBlock()"
+      (p-unselected)="onTableBlock()"
+      (p-all-selected)="onTableBlock()"
+      (p-all-unselected)="onTableBlock()"
+    >
+    </po-table>
+  </div>
+</po-page-default>

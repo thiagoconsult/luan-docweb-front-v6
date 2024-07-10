@@ -1,0 +1,70 @@
+
+.botoes-container {
+  display: flex;
+  justify-content: flex-end; /* Alinha os itens ao final (direita) do container */
+  gap: 10px; /* Espaço entre os botões */
+}
+
+.button-container {
+  margin-top: 20px; /* Espaçamento entre a tabela e os botões */
+}
+
+.centered-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Espaçamento entre os links */
+}
+
+.pagination-link {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: #045b8f;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.pagination-link .icon {
+  font-size: 24px;
+}
+
+.pagination-link .label {
+  font-size: 16px;
+  margin-left: 8px; /* Espaço entre o ícone e o texto no link "Voltar" */
+}
+
+.pagination-link .icon.po-icon-last-page {
+  margin-left: 8px; /* Espaço entre o texto e o ícone no link "Avançar" */
+}
+
+.pagination-link:hover:not(.disabled) {
+  color: #045b8f;
+}
+
+.pagination-link.disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Certifique-se de que o corpo e o contêiner da tabela ocupem todo o espaço disponível */
+body, html {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.table-container {
+  flex: 1; /* Permitir que o contêiner cresça para ocupar o espaço disponível */
+  display: flex;
+  flex-direction: column;
+  padding: 10px; /* Adicionar algum espaçamento ao redor da tabela */
+}
+
+po-table {
+  flex: 1; /* Permitir que a tabela cresça para ocupar o espaço disponível */
+  min-height: 65vh; /* Altura mínima para a tabela */
+  height: 65vh; /* Altura baseada na viewport */
+  max-height: 100vh; /* Permitir que a tabela cresça até a altura máxima da viewport */
+}
